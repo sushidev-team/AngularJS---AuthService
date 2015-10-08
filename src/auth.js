@@ -91,6 +91,7 @@
               }
             };
             IdentitySrv.isInRole = function(role){
+                if (Itentity === undefined || !_Itentity === null) return false;
                 if (!_Itentity.roles) return false;
                 return _Itentity.roles.indexOf(role) != -1;
             };
