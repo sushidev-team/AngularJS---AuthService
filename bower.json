@@ -1,0 +1,32 @@
+{
+  "name": "ambersive-auth",
+  "version": "0.0.1",
+  "authors": [
+    "Manuel Ihl <manuel.ihl@ambersive.com>"
+  ],
+  "description": "This Service provides authentication functionality for route-ui.",
+  "main": "build/auth.js",
+  "keywords": [
+    "AngularJS",
+    "Angular",
+    "Auth",
+    "Router-UI Authentication",
+    "Generator"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:AMBERSIVE/AngularJS---AuthService.git"
+  },
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "*",
+    "ambersive-rest": "*",
+    "ambersive-bower": "ambersive-helper#*",
+    "angular-ui-router": "~0.2.15"
+  },
+  "license": "MIT",
+  "homepage": "http://www.ambersive.com"
+}

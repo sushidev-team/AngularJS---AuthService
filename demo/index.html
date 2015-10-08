@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS - AMBERSIVE Auth Service</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="../bower_components/ambersive-bower/build/helper.min.js"></script>
+    <script src="../bower_components/ambersive-rest/build/rest.min.js"></script>
+    <script src="../build/auth.js"></script>
+    <script>
+
+
+        angular.module('app', ['ambersive.auth','ui.router'])
+        .config(['$identitySettingsProvider','$stateProvider',function ($identitySettingsProvider,$stateProvider) {
+                    $identitySettingsProvider.setAuthentificationUrl('data/response.json');
+                    $identitySettingsProvider.setRedirectUrlOnLogged('http://google.at');
+
+                    $stateProvider
+                       .state('app', {
+                           abstract: true,
+                           resolve: {
+                               authorize: ['AuthSrv', function (AuthSrv) {
+                                   AuthSrv.authorize();
+                                   return AuthSrv.isAuthenticated();
+                               }]
+                           },
+                           data: {
+                                roles: ['User']
+                           },
+                           views: {
+                               'app': {
+                                   template: '<div ui-view="main"></div>'
+                               }
+                           }
+                       })
+                       .state('app.state1', {
+                                parent: 'app',
+                                url:'state1',
+                                views: {
+                                    'main@app': {
+                                        template: '<div>state1</div>'
+                                    }
+                                }
+                            })
+                       .state('app.state2', {
+                           parent: 'app',
+                           url:'state2',
+                           data: {
+                               roles: []
+                           },
+                           views: {
+                               'main@app': {
+                                   template: '<div>state2</div>'
+                               }
+                           }
+                       })
+                       .state('app.state3', {
+                           parent: 'app',
+                           url:'state3',
+                           data: {
+                               roles: ['Admin']
+                           },
+                           views: {
+                               'main@app': {
+                                   template: '<div>state 3</div>'
+                               }
+                           }
+                       })
+                       .state('app.state4', {
+                           parent: 'app',
+                           url:'state4',
+                           data: {
+                               roles: [],
+                               redirectOnLogged:true
+                           },
+                           views: {
+                               'main@app': {
+                                   template: '<div>state 4</div>'
+                               }
+                           }
+                       })
+                       .state('app.state5', {
+                           parent: 'app',
+                           url:'state5',
+                           data: {
+                               roles: [],
+                               redirectOnLogged:{
+                                   route:'app.state1'
+                               }
+                           },
+                           views: {
+                               'main@app': {
+                                   template: '<div>state 5</div>'
+                               }
+                           }
+                       })
+                       .state('app.error', {
+                           parent: 'app',
+                           url:'error',
+                           data: {
+                               roles: []
+                           },
+                           views: {
+                               'main@app': {
+                                   template: '<div>error</div>'
+                               }
+                           }
+                       });
+            }])
+           .controller('DemoController',function($scope,$log,AuthSrv,$rootScope){
+                $scope.simulateLogged = true;
+
+                $scope.get = function($event){
+                  if(!$scope.simulateLogged){
+                      AuthSrv.authorize({'authenticationUrl':'data/responseEmpty.json'});
+                  }
+                  else {
+                      AuthSrv.authorize();
+                  }
+                };
+
+                $scope.get();
+        });
+
+    </script>
+
+</head>
+<body ng-app="app" ng-controller="DemoController">
+    <div class="">
+        <input type="checkbox" ng-model="simulateLogged" ng-click="get($event)"> Simulate Logged? ({{simulateLogged}})
+    </div>
+    <ul>
+        <li><a ui-sref="app.state1">State 1</a></li>
+        <li><a ui-sref="app.state2">State 2</a></li>
+        <li><a ui-sref="app.state3">State 3 (Redirect no permission)</a></li>
+        <li><a ui-sref="app.state4">State 4 (Redirect if logged to google - global setting)</a></li>
+        <li><a ui-sref="app.state5">State 5 (Redirect if logged to custom route specific setting)</a></li>
+    </ul>
+
+    <div ui-view="app"></div>
+
+</body>
+</html>
