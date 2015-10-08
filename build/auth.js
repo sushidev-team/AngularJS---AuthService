@@ -259,8 +259,10 @@
 
                         // Get user and site roles
 
-                        if(_identity.roles !== undefined){
-                            _userRoles = _identity.roles;
+                        if(_identity !== null) {
+                            if (_identity.roles !== undefined) {
+                                _userRoles = _identity.roles;
+                            }
                         }
 
                         if($rootScope.toState !== undefined){
