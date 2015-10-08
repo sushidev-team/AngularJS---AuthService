@@ -108,6 +108,7 @@
                 return false;
             };
             IdentitySrv.isInAnyRoleGlobal = function(){
+                if (Itentity === undefined || !_Itentity === null) return false;
                 if (!_Itentity.roles) return false;
 
                 var roles = _Itentity.roles,
