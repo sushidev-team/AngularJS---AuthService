@@ -25,7 +25,7 @@
                 AuthSrv.authorize();
             });
 
-            $scope.$on('Identity', function(event, args) {
+            $rootScope.$on('Identity', function(event, args) {
                 $rootScope.identity = args.identity;
             });
 
