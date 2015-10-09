@@ -24,6 +24,11 @@
                 $rootScope.toStateParams = toStateParams;
                 AuthSrv.authorize();
             });
+
+            $scope.$on('Identity', function(event, args) {
+                $rootScope.identity = args.identity;
+            });
+
         }
     ]);
 
@@ -308,6 +313,8 @@
 
 
                         }
+
+                        $rootScope.$broadcast('Identity', { identity: _identity});
 
                     });
             };
