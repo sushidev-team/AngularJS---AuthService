@@ -131,7 +131,8 @@
                 var deferred = $q.defer(),
                     authObj = {
                         'method': 'GET',
-                        'url': settings.authenticationUrl
+                        'url': settings.authenticationUrl,
+                        'header':{}
                     };
 
                 HelperSrv.cookies.get('accessToken', function (accessToken) {
