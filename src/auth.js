@@ -158,7 +158,7 @@
                         }
 
                         deferred.resolve(_Itentity);
-                        $rootScope.idenity = _Itentity;
+                        $rootScope.identity = _Itentity;
                         $rootScope.isAuthenticated = IdentitySrv.isAuthenticated();
                     });
 
