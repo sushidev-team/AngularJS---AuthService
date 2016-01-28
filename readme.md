@@ -1,7 +1,7 @@
 # ROUTER-UI AUTH - AngularJS Service
 
 ### Version
-0.0.4.6
+0.0.4.7
 
 ### Installation
 
