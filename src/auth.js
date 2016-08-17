@@ -151,7 +151,7 @@
                             _Itentity = null;
                         } else {
                             var data = result.data;
-                            if(data.data !== undefined){
+                            if(data !== undefined && data.data !== undefined){
                                 data = data.data;
                             }
                             _Itentity = data;
@@ -268,7 +268,7 @@
 
                         // Get user and site roles
 
-                        if(_identity !== null) {
+                        if(_identity !== null && _identity !== undefined) {
                             if (_identity.roles !== undefined) {
                                 _userRoles = _identity.roles;
                             }
